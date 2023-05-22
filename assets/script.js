@@ -31,6 +31,7 @@ function fetchTheWeather(city) {
             console.log(data);
             var lat = data.coord.lat;
             var lon = data.coord.lon;
+            console.log(lat, lon);
             fetchForecast(lat, lon);
         
         // Update the HTML elements with the fetched weather data
@@ -59,13 +60,7 @@ function fetchForecast(lat, lon) {
 
 function renderForecast(data) {
     // Get all divs for the days
-    const dayDivs = [
-        dayZero,
-        dayOne,
-        dayTwo,
-        dayThree,
-        dayFour
-    ];
+    const dayDivs = [dayZero, dayOne, dayTwo, dayThree, dayFour];
 
     // Loop over each div and set the data
     for (var i = 0; i < dayDivs.length; i++) {
@@ -73,22 +68,26 @@ function renderForecast(data) {
         var forecast = data.list[i * 8];
 
         // Set the date in the h5 element
-        var dateElement = dayDiv.querySelector('h5');
-        var date = new Date(forecast.dt * 1000);
-        dateElement.textContent = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+        if (forecast.weather && forecast.weather.length > 0) {
+            var dateElement = dayDiv.querySelector('h5');
+            var date = new Date(forecast.dt * 1000);
+            dateElement.textContent = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
 
-        // Set the weather icon
-        var iconElement = dayDiv.querySelector('img');
-        var iconCode = forecast.weather[0].icon;
-        iconElement.src = "http://openweathermap.org/img/w/" + iconCode + ".png";
+            // Set the weather icon
+            var iconElement = dayDiv.querySelector('img');
+            var iconCode = forecast.weather[0].icon;
+            iconElement.src = "http://openweathermap.org/img/w/" + iconCode + ".png";
 
-        // Set the temperature
-        var tempElement = dayDiv.querySelector('.temp-p');
-        tempElement.textContent = 'Temp: ' + forecast.main.temp + ' °F';
+            // Set the temperature
+            var tempElement = dayDiv.querySelector('.temp-p');
+            tempElement.textContent = 'Temp: ' + forecast.main.temp + ' °F';
 
-        // Set the humidity
-        var humidElement = dayDiv.querySelector('.humid-p');
-        humidElement.textContent = 'Humidity: ' + forecast.main.humidity + '%';
+            // Set the humidity
+            var humidElement = dayDiv.querySelector('.humid-p');
+            humidElement.textContent = 'Humidity: ' + forecast.main.humidity + '%';
+        } else {
+            console.log(`No weather data available for index ${i * 8}`);
+        }
     }
 }
 
@@ -100,9 +99,27 @@ function saveCity(city) {
     localStorage.setItem('cities', JSON.stringify(cities));
 }
 
+function loadCities() {
+    var cities = JSON.parse(localStorage.getItem('cities')) || [];
+    var citiesList = document.getElementById('cities-searched');
+    citiesList.innerHTML = '';
+    for (var i = 0; i < cities.length; i++) {
+        var city = cities[i];
+        var li = document.createElement('li');
+        li.textContent = city;
+        li.addEventListener('click', function(event) {
+            fetchTheWeather(event.target.textContent);
+        });
+        citiesList.appendChild(li);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadCities);
+
 searchButton.addEventListener('click', function(event) {
     event.preventDefault();
     var city = searchInput.value;
     fetchTheWeather(city);
-    fetchForecast(city);
+    saveCity(city);
+    loadCities();
 });
