@@ -92,6 +92,14 @@ function renderForecast(data) {
     }
 }
 
+function saveCity(city) {
+    var cities = JSON.parse(localStorage.getItem('cities')) || [];
+    if (cities.indexOf(city) === -1) {
+        cities.push(city);
+    }
+    localStorage.setItem('cities', JSON.stringify(cities));
+}
+
 searchButton.addEventListener('click', function(event) {
     event.preventDefault();
     var city = searchInput.value;
