@@ -21,7 +21,7 @@ const currentWeatherDisplay = document.getElementById('current-weather');
 const searchHistory = document.getElementById('cities-searched');
 
 function fetchTheWeather(city) {
-    var requestURL = apiURL + "/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+    var requestURL = `${apiURL}/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
     fetch(requestURL)
         .then(function(response) {
@@ -29,6 +29,9 @@ function fetchTheWeather(city) {
         })
         .then(function(data) {
             console.log(data);
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+            fetchForecast(lat, lon);
         
         // Update the HTML elements with the fetched weather data
         cityId.textContent = data.name;
@@ -40,8 +43,8 @@ function fetchTheWeather(city) {
     });
 }
 
-function fetchForecast(city) {
-    var forecastURL = apiURL + "/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
+function fetchForecast(lat, lon) {
+    var forecastURL = `${apiURL}/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 
     fetch(forecastURL)
         .then(function(response) {
