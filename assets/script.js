@@ -17,8 +17,6 @@ const dayOne = document.getElementById('day-one');
 const dayTwo = document.getElementById('day-two');
 const dayThree = document.getElementById('day-three');
 const dayFour = document.getElementById('day-four');
-const currentWeatherDisplay = document.getElementById('current-weather');
-const searchHistory = document.getElementById('cities-searched');
 
 // Function for fetching the current weather data from OpenWeather API
 function fetchTheWeather(city) {
@@ -80,7 +78,7 @@ function renderForecast(data) {
         var forecast = data.list[i * 8];
 
         // If there is weather data available for the given index, update the HTML element
-        if (forsecast.weather && forecast.weather.length > 0) {
+        if (forecast.weather && forecast.weather.length > 0) {
             // Set the date
             var dateElement = dayDiv.querySelector('h5');
             var date = new Date(forecast.dt * 1000);
