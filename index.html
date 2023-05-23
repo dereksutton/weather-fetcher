@@ -9,11 +9,11 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <header class="p-3 mb-3 page-header bg-info text-light">
+    <header class="p-3 mb-3 page-header bg-info text-light center-sm">
         <h1>Weather Fetcher</h1>
     </header>
 
-    <main class="container-fluid row">
+    <main class="container-fluid row center-content">
 
         <section class="col-md-2 search-board">
             <div class="search-field">
@@ -23,10 +23,10 @@
                 <div>
                     <form id="search-form" class="row g-3 align-items-center">
                         <div class="col-12">
-                            <label for="city-search" class="form-label">City Name:</label>
+                            <label for="city-search" class="form-label"></label>
                             <input type="text" class="form-control" id="city-search" placeholder="Enter City Here" required>
                         </div>
-                        <div class="col-8">
+                        <div class="col-12 btn-center">
                             <button type="submit" class="btn btn-info w-100" id="search-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -44,7 +44,7 @@
             </div>
         </section>
 
-        <section class="col-md-9 conditions-board">
+        <section class="col-9 conditions-board">
             <div class="conditions-now" id="current-weather">
                 <div class="city-details d-flex align-items-center">
                     <h3 id="city-id"></h3>
