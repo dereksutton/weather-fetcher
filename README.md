@@ -3,6 +3,10 @@
 ## Description
 Weather Fetcher is a simple, user-friendly web application that provides real-time weather data for any city in the world. It uses the OpenWeatherMap API to fetch current weather data as well as a five-day forecast. It is built with HTML, CSS, and JavaScript, and uses Bootstrap for responsive design.
 
+## Deployed URL
+
+You can view and use this app via this link:  https://dereksutton.github.io/weather-fetcher/
+
 ![Screenshot of the app](./assets/WeatherFetcher-Screenshot.jpg)
 
 ## Features
